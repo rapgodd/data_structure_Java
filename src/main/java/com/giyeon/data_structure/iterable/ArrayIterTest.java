@@ -33,5 +33,13 @@ public class ArrayIterTest {
          * keySet(), entrySet(), values()
          */
 
+
+        /**
+         * Iterable
+         * 배열에서 hasNext(), next() 이런거 필요해
+         * but 클래스가 아니라서 직접 클래스를 만들어야 함 iterable 구현하기 위해
+         * iterator 메서드 오버라이딩 해야함.
+         * 너의 배열의 hasNext()와 next() 메서드를 구현한 클래스에 배열을 넘겨줘야함.
+         */
     }
 }
