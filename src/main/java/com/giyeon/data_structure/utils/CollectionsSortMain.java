@@ -17,7 +17,11 @@ public class CollectionsSortMain {
 
         Integer max = Collections.max(list);
         Integer min = Collections.min(list);
-        System.out.println("min = " + min+" max = " + max);
+        System.out.println("min = " + min);
+        System.out.println("max = " + max);
+
+        Collections.shuffle(list);
+        System.out.println(list);
 
     }
 }
