@@ -11,16 +11,16 @@ package com.giyeon.data_structure.compare.cardGame;
  */
 public class Card implements Comparable<Card> {
 
-    private final int Num;
+    private final int num;
     private final Suit suit;
 
     public Card(int num, Suit suit) {
-        Num = num;
+        this.num = num;
         this.suit = suit;
     }
 
     public int getNum() {
-        return Num;
+        return num;
     }
 
     public Suit getSuit() {
@@ -36,7 +36,18 @@ public class Card implements Comparable<Card> {
     @Override
     public int compareTo(Card anotherCard) {
         //숫자로 비교
-        Integer.compare(this.getNum(), anotherCard.getNum());
-        return 0;
+        if(this.num != anotherCard.num) {
+            return Integer.compare(this.num, anotherCard.num);
+        }else{
+            return this.suit.compareTo(anotherCard.suit);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "num=" + num +
+                ", suit=" + suit +
+                '}';
     }
 }
