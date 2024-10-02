@@ -2,6 +2,7 @@ package com.giyeon.data_structure.backjoon;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Hacking {
@@ -15,14 +16,14 @@ public class Hacking {
 
         List<String> lists = new ArrayList<>();
 
-        for (int i = 0; i < loopNum; i++) {
+        for (int i = 0; i < loopNum; i++) {//상수번 계산 A
             String s = br.readLine();
-            String[] inputStringArr = s.split("");
+            String[] inputStringArr = s.split("");//백만번
 
-            List<String> answer = new ArrayList<>();
-            Integer index = 0;
+            LinkedList<String> answer = new LinkedList<>();
+            int index = 0;
 
-            for (String string : inputStringArr) {
+            for (String string : inputStringArr) {//백만번
                 if(!string.equals("<")&&!string.equals(">")&&!string.equals("-")) {
                     answer.add(index,string);
                     index++;
@@ -45,7 +46,7 @@ public class Hacking {
             StringBuilder stringBuilder = new StringBuilder();
             for (String s1 : answer) {
                 stringBuilder.append(s1);
-            }
+            }//백만번
             lists.add(stringBuilder.toString());
         }
 
