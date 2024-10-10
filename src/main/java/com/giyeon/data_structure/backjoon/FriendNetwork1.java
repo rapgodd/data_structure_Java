@@ -57,8 +57,7 @@ public class FriendNetwork1 {
         if(x == parent[x]){
             return x;
         }else {
-           parent[x] = find(parent[x]);
-           return parent[x];
+           return parent[x] = find(parent[x]);
         }
     }
     public static int union(int a, int b) {//a와 b는 맵의 값이다.
@@ -67,11 +66,11 @@ public class FriendNetwork1 {
 
         if (i > j) {
             parent[i] = j;
-            level[i] += level[j];
+            level[j] += level[i];
             return level[j];
         } else if (i < j) {
             parent[j] = i;
-            level[j] += level[i];
+            level[i] += level[j];
             return level[i];
         }
         return level[i];
