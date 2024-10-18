@@ -3,6 +3,7 @@ package com.giyeon.data_structure.backjoon;
 
 import java.io.*;
 
+//어떤 오류가 있는건지 모르겠음.
 public class FindWord {
 
     public static int count = 0;
@@ -23,18 +24,18 @@ public class FindWord {
         for (nextIndex = 0; nextIndex < words.length; nextIndex++) {
 
             if(words[nextIndex].equals(oneLetterByOneLetter[0])){
-                for(int j = 1; j < oneLetterByOneLetter.length; j++){
-                    if(!oneLetterByOneLetter[j].equals(words[nextIndex+j])){
-                        break;
-                    }
-                    //끝까지 같은 경우
-                    if(oneLetterByOneLetter[oneLetterByOneLetter.length-1].equals(words[nextIndex+ oneLetterByOneLetter.length-1])){
-                        count++;
-                        nextIndex = nextIndex + (oneLetterByOneLetter.length);
+                if(words.length-nextIndex>=oneLetterByOneLetter.length){
+                    for(int j = 1; j < oneLetterByOneLetter.length; j++){
+                        if(!oneLetterByOneLetter[j].equals(words[nextIndex+j])){
+                            break;
+                        }
+                        if(j==oneLetterByOneLetter.length-1){
+                            count++;
+                            nextIndex = nextIndex + oneLetterByOneLetter.length-1;
+                        }
                     }
                 }
             }
-
 
         }
 
