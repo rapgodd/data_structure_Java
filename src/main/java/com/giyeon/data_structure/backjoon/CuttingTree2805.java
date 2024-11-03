@@ -28,24 +28,31 @@ public class CuttingTree2805 {
     }
 
     private static int binarySearchToGetCutterHigh(int tallestTreeLength, int low, ArrayList<Integer> treeLengthArray,int requiredCuttingLength) {
-        int mid = (tallestTreeLength + low) / 2;
-        long cuttedTreeLengthSum = 0;
-        for(int treeLength : treeLengthArray){
-            if(treeLength - mid> 0){
-                cuttedTreeLengthSum = cuttedTreeLengthSum + treeLength - mid;
+        int mid = 0;
+        long cuttedTreeLengthSum;
+        int result = 0;
+
+        while(tallestTreeLength>=low){
+            mid = (tallestTreeLength + low) / 2;
+            cuttedTreeLengthSum = 0;
+            for(int treeLength : treeLengthArray){
+                if(treeLength - mid> 0){
+                    cuttedTreeLengthSum = cuttedTreeLengthSum + treeLength - mid;
+                    if(cuttedTreeLengthSum>requiredCuttingLength){
+                        break;
+                    }
+                }
+            }
+
+            if(cuttedTreeLengthSum>=requiredCuttingLength){
+                low = mid + 1;
+                result = mid;
+            }else if(cuttedTreeLengthSum<requiredCuttingLength){
+                tallestTreeLength = mid - 1;
             }
         }
 
-        if(cuttedTreeLengthSum > requiredCuttingLength){
-            low = mid + 1;
-            return binarySearchToGetCutterHigh(tallestTreeLength, low, treeLengthArray,requiredCuttingLength);
-        }else if(cuttedTreeLengthSum < requiredCuttingLength){
-            tallestTreeLength = mid - 1;
-            return binarySearchToGetCutterHigh(tallestTreeLength, low, treeLengthArray,requiredCuttingLength);
-        }else{
-            return mid;
-        }
-
+        return result;
     }
 
     private static int getEachTreeAndReturnTallestTreeLength(int treeAmount, BufferedReader br, ArrayList<Integer> treeLengthArray) throws IOException{
