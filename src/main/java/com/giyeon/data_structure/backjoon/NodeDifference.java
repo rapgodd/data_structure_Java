@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class NodeDifference {
-    private static Node firstNode = new Node(1, 1, null, null);
     private static HashMap<Integer, ArrayList<Integer>> levelAndNodeRootNum = new HashMap<>();
     private static HashMap<Integer, Integer> nodeDifferencesByEachLevel = new HashMap<>();
     private static ArrayList<Integer> bucketOfWholeNode = new ArrayList<>();
@@ -17,21 +16,33 @@ public class NodeDifference {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int loopNum = Integer.parseInt(br.readLine());
+        Node firstNode = null;
 
         for (int i = 0; i < loopNum; i++) {
-            String[] RootLeftRight = br.readLine().split(" ");
-            int root = Integer.parseInt(RootLeftRight[0]);
-            int left = Integer.parseInt(RootLeftRight[1]);
-            int right = Integer.parseInt(RootLeftRight[2]);
-            insertNode(firstNode, root, left, right);
+
+            if (i == 0) {
+                String[] RootLeftRight = br.readLine().split(" ");
+                int root = Integer.parseInt(RootLeftRight[0]);
+                int left = Integer.parseInt(RootLeftRight[1]);
+                int right = Integer.parseInt(RootLeftRight[2]);
+                firstNode = new Node(root, 1, null, null);
+                insertNode(firstNode, root, left, right);
+            }else {
+                String[] RootLeftRight = br.readLine().split(" ");
+                int root = Integer.parseInt(RootLeftRight[0]);
+                int left = Integer.parseInt(RootLeftRight[1]);
+                int right = Integer.parseInt(RootLeftRight[2]);
+                insertNode(firstNode, root, left, right);
+            }
+
         }
 
         //키별로 숫자 찾고 가장 큰 숫자,가장 작은 숫자 노드의 위치차이 구해서 레벨별 위치차이 구할것이다.
-        getDifferencesByLevel(levelAndNodeRootNum.keySet().size());
+        getDifferencesByLevel(levelAndNodeRootNum.keySet().size(),firstNode);
         int biggestDifference = 0;
         int level = 0;
 
-        for (int i = 2; i < nodeDifferencesByEachLevel.size()+1; i++) {
+        for (int i = 2; i < nodeDifferencesByEachLevel.size()+2; i++) {
             Integer difference = nodeDifferencesByEachLevel.get(i);
             if(difference>biggestDifference) {
                 biggestDifference = difference;
@@ -45,13 +56,13 @@ public class NodeDifference {
         br.close();
     }
 
-    private static void getDifferencesByLevel(int keySize) {
-        for (int i = 2; i < keySize + 1; i++) {
+    private static void getDifferencesByLevel(int keySize,Node node) {
+        for (int i = 2; i < keySize + 2; i++) {
             ArrayList<Integer> numberCollection = levelAndNodeRootNum.get(i);
             Collections.sort(numberCollection);
             int lowestNum = numberCollection.get(0);
             int highestNum = numberCollection.get(numberCollection.size() - 1);
-            getNodeSequence(firstNode);
+            getNodeSequence(node);
             int lowestNumLocation = 0;
             int highestNumLocation= 0;
 
@@ -78,9 +89,7 @@ public class NodeDifference {
     }
 
     private static void insertNode(Node node, int root, int left, int right) {
-        if (node == null) {
-            return;
-        }
+
         if (node.getRoot() == root) {
             if (left != -1) {
                 node.setLeftNode(new Node(left, node.getLevel() + 1, null, null));
@@ -90,8 +99,12 @@ public class NodeDifference {
                 node.setRightNode(new Node(right, node.getLevel() + 1, null, null));
                 updateHashMapWithLevelAndNum(node, right);
             }
-        } else if(node.getLeftNode() != null&&node.getRightNode() != null) {
+            return;
+        }
+        if(node.getLeftNode() != null) {
             insertNode(node.getLeftNode(), root, left, right);
+        }
+        if (node.getRightNode() != null) {
             insertNode(node.getRightNode(), root, left, right);
         }
     }
