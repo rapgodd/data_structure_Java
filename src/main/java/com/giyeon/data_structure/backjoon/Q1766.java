@@ -30,7 +30,7 @@ public class Q1766 {
             values.offer(value);
         }
 
-        findResultSequence(sb,pq,pqExceptContentsFromHash,values,secondAndFirstHashMap);
+        findResultSequence(sb,pq,values,pqExceptContentsFromHash,secondAndFirstHashMap);
 
         bw.write(sb.toString());
         bw.flush();
@@ -43,16 +43,29 @@ public class Q1766 {
 
         while(pq.size()>0){
             Integer poll = pq.poll();//1 2 3 4 에서 1
+            Integer priorityValue = hash.get(poll);
             //pqExceptHash null
             //values 3 4
 
             if(hash.containsKey(poll)){
-                if(hash.get(poll).equals(values.peek())){
-                    if(pqExceptHash.peek().equals(poll) || pqExceptHash.peek()==null){
-                        sb.append(poll+" ");
-                        values.poll();
-                        pqExceptHash.poll();
+                if(priorityValue.equals(values.peek())){
+                    if(pqExceptHash.peek()==null){
+                        sb.append(priorityValue+" ");
+                        pq.remove(priorityValue);
+                        values.remove(priorityValue);
+                        pq.offer(poll);
+                        hash.remove(poll, priorityValue);
+                    }
+                    else if(pqExceptHash.peek()>priorityValue){
+                        sb.append(priorityValue+" ");
+                        pq.remove(priorityValue);
+                        values.remove(priorityValue);
+                        pq.offer(poll);
+                        hash.remove(poll, priorityValue);
                     }else{
+                        Integer poll1 = pqExceptHash.poll();
+                        sb.append(poll1+" ");
+                        pq.remove(poll1);
                         pq.offer(poll);
                     }
                 }else{
@@ -61,9 +74,8 @@ public class Q1766 {
                 }
 
             }else{
-                if(pqExceptHash.poll().equals(poll)) {
-                    sb.append(poll + " ");
-                }
+                sb.append(poll + " ");
+                pqExceptHash.remove(poll);
             }
         }
 
