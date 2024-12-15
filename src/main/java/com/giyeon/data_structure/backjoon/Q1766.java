@@ -16,6 +16,7 @@ public class Q1766 {
         PriorityQueue<Integer> values = new PriorityQueue<>();
 
 
+
         String[] loopNum = br.readLine().split(" ");
         int questionSize = Integer.parseInt(loopNum[0]);
         int prioritySize = Integer.parseInt(loopNum[1]);
