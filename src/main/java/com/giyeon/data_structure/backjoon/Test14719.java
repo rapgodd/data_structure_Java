@@ -5,6 +5,8 @@ import java.util.*;
 
 public class Test14719 {
 
+    static int totalWidth = 0;
+
     /**
      * 고인물 넓이 구하기
      *
@@ -25,12 +27,48 @@ public class Test14719 {
         boolean[][] map = new boolean[verticalLen][horizonLen];
 
         fillMap(map, br);
+
+        getWidth(map,verticalLen,horizonLen);
+
+        sb.append(totalWidth);
+        String result = sb.toString();
+        bw.write(result);
+        bw.flush();
+        bw.close();
+        br.close();
     }
 
-    private static void fillMap(boolean[][] map, BufferedReader br) throws IOException{
+    private static void getWidth(boolean[][] map, int verticalLen, int horizonLen) throws IOException{
 
-        br.readLine().split(" ");
-        
+
+        for(int i = 0; i < verticalLen; i++){
+            ArrayDeque<Integer> deque = new ArrayDeque<>();
+            for(int j = 0; j<horizonLen; j++){
+                if(map[i][j]){
+                    deque.offerLast(j);
+                    if(deque.size()==2){
+                        int bigIndex = deque.peekLast();
+                        int smallIndex = deque.pollFirst();
+
+                        totalWidth += bigIndex-smallIndex-1;
+                    }
+                }
+            }
+        }
+
+    }
+
+
+        private static void fillMap(boolean[][] map, BufferedReader br) throws IOException{
+
+        String[] a = br.readLine().split(" ");
+        int len = a.length;
+        for(int i=0; i<len; i++){
+            int eachVerticalLen = Integer.parseInt(a[i]);
+            for(int j = 0; j<eachVerticalLen;j++){
+                map[eachVerticalLen-j-1][i] = true;
+            }
+        }
     }
 
 }
