@@ -4,6 +4,8 @@ import java.io.*;
 
 public class test2563 {
 
+    public static int a = 0;
+
     public static void main(String[] args)  throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
