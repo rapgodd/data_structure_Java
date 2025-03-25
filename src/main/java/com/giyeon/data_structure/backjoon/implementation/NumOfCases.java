@@ -18,7 +18,7 @@ public class NumOfCases {
         return count;
 
     }
-    
+
 
     public int v2(int n){
         int count = 1;
