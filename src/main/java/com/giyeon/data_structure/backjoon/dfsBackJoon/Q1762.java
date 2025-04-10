@@ -66,7 +66,7 @@ public class Q1762 {
         }
 
     }
-
+   
     private static void fillList(ArrayList<ArrayList<Integer>> list, int questionSize,ArrayList<Integer> arrList){
 
         for(int i = 0; i < questionSize+1; i++){
