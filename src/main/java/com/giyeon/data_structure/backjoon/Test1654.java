@@ -32,6 +32,8 @@ public class Test1654 {
         bw.close();
         br.close();
 
+        int[] arr = new int[3];
+        System.out.println(arr[1]);
 
     }
 
